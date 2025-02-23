@@ -1,11 +1,10 @@
 pipeline {
     agent any
 
-
     environment {
         NETLIFY_SITE_ID = 'ea4fafce-2f41-4942-a8ce-8ef8038f51eb'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
-	    REACT_APP_VERSION = "1.0.$BUILD_ID"
+        REACT_APP_VERSION = "1.0.$BUILD_ID"
     }
 
     stages {
@@ -19,7 +18,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'my-playwright'
+                    image 'node:18-alpine'
                     reuseNode true
                 }
             }
@@ -40,7 +39,7 @@ pipeline {
                 stage('Unit tests') {
                     agent {
                         docker {
-                            image 'my-playwright'
+                            image 'node:18-alpine'
                             reuseNode true
                         }
                     }
